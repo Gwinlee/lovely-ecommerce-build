@@ -9,6 +9,9 @@ export const Route = createFileRoute("/products/$id")({
     const product = await getProduct({ data: { id } });
     return { product };
   },
+  pendingComponent: DetailSkeleton,
+  errorComponent: DetailError,
+  notFoundComponent: ProductNotFound,
   component: ProductDetailPage,
 });
 
