@@ -2,8 +2,36 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { getProduct } from "@/lib/products.functions";
 import { formatNaira } from "@/lib/format";
 import { AddToCartButton } from "@/components/product-card";
+import type { Product } from "@/lib/products.functions";
+
+function detailHead(loaderData?: { product: Product | null }) {
+  const product = loaderData?.product;
+  if (!product) {
+    return {
+      meta: [
+        { title: "Product not found — Kasuwa Market" },
+        { name: "robots", content: "noindex" },
+      ],
+    };
+  }
+  const blurb =
+    product.description?.slice(0, 160) ??
+    `Buy ${product.name} at Kasuwa Market — ${formatNaira(product.price)}.`;
+  return {
+    meta: [
+      { title: `${product.name} — Kasuwa Market` },
+      { name: "description", content: blurb },
+      { property: "og:title", content: `${product.name} — Kasuwa Market` },
+      { property: "og:description", content: blurb },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  };
+}
+
 
 export const Route = createFileRoute("/products/$id")({
+  head: ({ loaderData }) => detailHead(loaderData),
   loader: async ({ params }) => {
     const id = Number(params.id);
     const product = await getProduct({ data: { id } });
