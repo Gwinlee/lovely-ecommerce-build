@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { getProduct } from "@/lib/products.functions";
 import { formatNaira } from "@/lib/format";
 import { AddToCartButton } from "@/components/product-card";
@@ -36,6 +36,7 @@ export const Route = createFileRoute("/products/$id")({
   },
   loader: async ({ params }) => {
     const id = Number(params.id);
+    if (!Number.isInteger(id) || id <= 0) return { product: null };
     const product = await getProduct({ data: { id } });
     return { product };
   },
@@ -47,6 +48,8 @@ export const Route = createFileRoute("/products/$id")({
 
 function ProductDetailPage() {
   const { product } = Route.useLoaderData();
+
+  if (!product) return <ProductNotFound />;
 
   const outOfStock = product.stock_quantity <= 0;
 
