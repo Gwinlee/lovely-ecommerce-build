@@ -38,7 +38,8 @@ export const Route = createFileRoute("/products/$id")({
   loader: async ({ params, context }) => {
     const id = Number(params.id);
     if (!Number.isInteger(id) || id <= 0) throw notFound();
-    await context.queryClient.ensureQueryData(productQueryOptions(id));
+    const product = await context.queryClient.ensureQueryData(productQueryOptions(id));
+    return { product };
   },
   pendingComponent: DetailSkeleton,
   errorComponent: DetailError,
