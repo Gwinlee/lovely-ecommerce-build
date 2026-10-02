@@ -31,7 +31,7 @@ function detailHead(loaderData?: { product: Product | null }) {
 
 
 export const Route = createFileRoute("/products/$id")({
-  head: ({ loaderData }) => detailHead(loaderData),
+  head: () => detailHead(undefined),
   loader: async ({ params }) => {
     const id = Number(params.id);
     const product = await getProduct({ data: { id } });
