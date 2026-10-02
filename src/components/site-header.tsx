@@ -95,7 +95,7 @@ export function SiteHeader() {
           )}
 
           <Link
-            to="/"
+            to="/cart"
             aria-label={`Cart with ${count} item${count === 1 ? "" : "s"}`}
             className="relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-card px-4 text-sm font-medium text-foreground transition-colors hover:border-primary/40 hover:bg-secondary"
           >
