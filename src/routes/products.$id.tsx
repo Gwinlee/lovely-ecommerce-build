@@ -36,7 +36,6 @@ export const Route = createFileRoute("/products/$id")({
   },
   loader: async ({ params }) => {
     const id = Number(params.id);
-    if (!Number.isInteger(id) || id <= 0) return { product: null };
     const product = await getProduct({ data: { id } });
     return { product };
   },
