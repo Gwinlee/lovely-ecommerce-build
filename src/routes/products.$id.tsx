@@ -36,8 +36,6 @@ export const Route = createFileRoute("/products/$id")({
     };
   },
   loader: async ({ params, context }) => {
-    // getProduct returns null for unknown ids; surface that as the route's 404.
-    context.queryClient.setQueryDefaults(["product-guard", params.id], {});
     const id = Number(params.id);
     if (!Number.isInteger(id) || id <= 0) throw notFound();
     await context.queryClient.ensureQueryData(productQueryOptions(id));
