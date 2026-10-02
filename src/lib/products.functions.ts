@@ -1,7 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { notFound } from "@tanstack/react-router";
-import { queryOptions } from "@tanstack/react-query";
 import type { Database } from "@/integrations/supabase/types";
 
 export type Product = Database["public"]["Tables"]["products"]["Row"];
@@ -45,12 +43,3 @@ export const getProduct = createServerFn({ method: "GET" })
 export const productsQueryOptions = () =>
   queryOptions({ queryKey: ["products"], queryFn: () => listProducts() });
 
-export const productQueryOptions = (id: number) =>
-  queryOptions({
-    queryKey: ["product", id],
-    queryFn: async () => {
-      const product = await getProduct({ data: { id } });
-      if (!product) throw notFound();
-      return product;
-    },
-  });

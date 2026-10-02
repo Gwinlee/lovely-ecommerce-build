@@ -1,6 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { productQueryOptions } from "@/lib/products.functions";
+import { getProduct } from "@/lib/products.functions";
 import { formatNaira } from "@/lib/format";
 import { AddToCartButton } from "@/components/product-card";
 
@@ -49,8 +48,7 @@ export const Route = createFileRoute("/products/$id")({
 });
 
 function ProductDetailPage() {
-  const { id } = Route.useParams();
-  const { data: product } = useSuspenseQuery(productQueryOptions(Number(id)));
+  const { product } = Route.useLoaderData();
 
   const outOfStock = product.stock_quantity <= 0;
 

@@ -4,7 +4,7 @@ import type { Product } from "@/lib/products.functions";
 import { formatNaira } from "@/lib/format";
 import { useCart } from "@/lib/cart";
 
-function AddToCartButton({ product, className }: { product: Product; className?: string }) {
+export function AddToCartButton({ product, className }: { product: Product; className?: string }) {
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
