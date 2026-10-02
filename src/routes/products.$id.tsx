@@ -4,44 +4,11 @@ import { formatNaira } from "@/lib/format";
 import { AddToCartButton } from "@/components/product-card";
 
 export const Route = createFileRoute("/products/$id")({
-  head: ({ loaderData }) => {
-    if (!loaderData?.product) {
-      return {
-        meta: [
-          { title: "Product not found — Kasuwa Market" },
-          { name: "robots", content: "noindex" },
-        ],
-      };
-    }
-    return {
-      meta: [
-        { title: `${loaderData.product.name} — Kasuwa Market` },
-        {
-          name: "description",
-          content:
-            loaderData.product.description?.slice(0, 160) ??
-            `Buy ${loaderData.product.name} at Kasuwa Market — ${formatNaira(loaderData.product.price)}.`,
-        },
-        { property: "og:title", content: `${loaderData.product.name} — Kasuwa Market` },
-        {
-          property: "og:description",
-          content:
-            loaderData.product.description?.slice(0, 160) ??
-            `Buy ${loaderData.product.name} at Kasuwa Market — ${formatNaira(loaderData.product.price)}.`,
-        },
-        { property: "og:type", content: "website" },
-        { name: "twitter:card", content: "summary_large_image" },
-      ],
-    };
-  },
   loader: async ({ params }) => {
     const id = Number(params.id);
     const product = await getProduct({ data: { id } });
     return { product };
   },
-  pendingComponent: DetailSkeleton,
-  errorComponent: DetailError,
-  notFoundComponent: ProductNotFound,
   component: ProductDetailPage,
 });
 
