@@ -15,7 +15,7 @@ function AddToCartButton({ product, className }: { product: Product; className?:
     };
   }, []);
 
-  const outOfStock = product.stock_quantity <= 0astic;
+  const outOfStock = product.stock_quantity <= 0;
   if (outOfStock) {
     return (
       <button
