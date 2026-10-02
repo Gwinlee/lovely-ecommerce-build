@@ -5,7 +5,7 @@ import { formatNaira } from "@/lib/format";
 import { useCart } from "@/lib/cart";
 
 export function AddToCartButton({ product, className }: { product: Product; className?: string }) {
-  const { addToCart } = useCart();
+  const { addToCart, items } = useCart();
   const [added, setAdded] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -15,17 +15,19 @@ export function AddToCartButton({ product, className }: { product: Product; clas
     };
   }, []);
 
+  const inCart = items.find((i) => i.productId === product.id)?.quantity ?? 0;
   const outOfStock = product.stock_quantity <= 0;
-  if (outOfStock) {
+  const maxed = !outOfStock && inCart >= product.stock_quantity;
+  if (outOfStock || maxed) {
     return (
       <button
         disabled
         className={
-          className ??
-          "inline-flex h-10 w-full items-center justify-center rounded-lg bg-muted text-sm font-medium text-muted-foreground"
+          (className ?? "inline-flex h-10 w-full items-center justify-center rounded-lg text-sm font-medium") +
+          " bg-muted text-muted-foreground"
         }
       >
-        Out of stock
+        {outOfStock ? "Out of stock" : "Max in cart"}
       </button>
     );
   }
@@ -38,6 +40,7 @@ export function AddToCartButton({ product, className }: { product: Product; clas
           name: product.name,
           price: Number(product.price),
           imageUrl: product.image_url,
+          stockQuantity: product.stock_quantity,
         });
         setAdded(true);
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
