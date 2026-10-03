@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 interface AuthState {
   user: User | null;
   loading: boolean;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: (returnPath?: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -51,11 +51,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (returnPath?: string) => {
+    const safePath = returnPath && returnPath.startsWith("/") && !returnPath.startsWith("//") ? returnPath : "";
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin,
+        redirectTo: window.location.origin + safePath,
       },
     });
     if (error) {
