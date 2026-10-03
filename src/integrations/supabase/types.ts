@@ -154,7 +154,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      place_order: {
+        Args: {
+          p_customer_email: string
+          p_customer_name: string
+          p_items: Json
+        }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never
