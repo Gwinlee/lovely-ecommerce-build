@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useAuth } from "@/lib/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
@@ -24,6 +25,21 @@ function CartPage() {
   const { items, total, count, hydrated, setQuantity, removeItem, syncWithProducts } = useCart();
   const [message, setMessage] = useState<string | null>(null);
   const products = useQuery(productsQueryOptions());
+  const { user, signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
+
+  const onCheckout = async () => {
+    if (user) {
+      navigate({ to: "/checkout" });
+      return;
+    }
+    setMessage("Please sign in with Google to check out. You'll come back to your cart afterwards.");
+    try {
+      await signInWithGoogle("/cart");
+    } catch {
+      setMessage("Sign-in failed. Please try again.");
+    }
+  };
 
   // Refresh stock levels and prices from the shop so limits stay accurate.
   useEffect(() => {
@@ -140,10 +156,10 @@ function CartPage() {
             </div>
             <button
               type="button"
-              onClick={() => setMessage("Checkout coming soon")}
+              onClick={onCheckout}
               className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary text-base font-semibold text-primary-foreground hover:bg-primary/90"
             >
-              Checkout
+              {user ? "Checkout" : "Sign in to check out"}
             </button>
             {message && (
               <p role="status" className="mt-3 rounded-lg bg-secondary px-3 py-2 text-center text-sm text-secondary-foreground">
