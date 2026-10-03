@@ -159,6 +159,7 @@ export type Database = {
           p_customer_email: string
           p_customer_name: string
           p_items: Json
+          p_user_id: string
         }
         Returns: number
       }
