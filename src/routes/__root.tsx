@@ -130,6 +130,30 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function SiteFooter() {
+  return (
+    <footer className="border-t border-border bg-card">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:px-6">
+        <p>© {new Date().getFullYear()} Kasuwa Market</p>
+        <nav aria-label="Legal" className="flex items-center gap-4">
+          <Link
+            to="/privacy"
+            className="transition-colors hover:text-foreground hover:underline underline-offset-4"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            to="/terms"
+            className="transition-colors hover:text-foreground hover:underline underline-offset-4"
+          >
+            Terms of Service
+          </Link>
+        </nav>
+      </div>
+    </footer>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -141,6 +165,7 @@ function RootComponent() {
             <SiteHeader />
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
+            <SiteFooter />
           </div>
         </CartProvider>
       </AuthProvider>
