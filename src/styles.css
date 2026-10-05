@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system — "Kasuwa Market": warm ivory paper, deep forest green,
+ * Design system — "Oja Oba": warm ivory paper, deep forest green,
  * terracotta accents, Fraunces display serif over Work Sans body.
  *
  * The @theme inline block maps CSS custom properties to Tailwind utility

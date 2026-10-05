@@ -3,17 +3,17 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of Service — Kasuwa Market" },
+      { title: "Terms of Service — Oja Oba" },
       {
         name: "description",
         content:
-          "Terms of Service for Kasuwa Market: orders, pricing in Naira, stock availability, and how to contact us.",
+          "Terms of Service for Oja Oba: orders, pricing in Naira, stock availability, and how to contact us.",
       },
-      { property: "og:title", content: "Terms of Service — Kasuwa Market" },
+      { property: "og:title", content: "Terms of Service — Oja Oba" },
       {
         property: "og:description",
         content:
-          "Terms of Service for Kasuwa Market: orders, pricing in Naira, stock availability, and how to contact us.",
+          "Terms of Service for Oja Oba: orders, pricing in Naira, stock availability, and how to contact us.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -32,7 +32,7 @@ function TermsPage() {
         Terms of Service
       </h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        The rules for shopping with Kasuwa Market.
+        The rules for shopping with Oja Oba.
       </p>
 
       <div className="mt-8 space-y-8">

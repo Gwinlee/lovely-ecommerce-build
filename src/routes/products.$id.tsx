@@ -9,19 +9,19 @@ function detailHead(loaderData?: { product: Product | null }) {
   if (!product) {
     return {
       meta: [
-        { title: "Product not found — Kasuwa Market" },
+        { title: "Product not found — Oja Oba" },
         { name: "robots", content: "noindex" },
       ],
     };
   }
   const blurb =
     product.description?.slice(0, 160) ??
-    `Buy ${product.name} at Kasuwa Market — ${formatNaira(product.price)}.`;
+    `Buy ${product.name} at Oja Oba — ${formatNaira(product.price)}.`;
   return {
     meta: [
-      { title: `${product.name} — Kasuwa Market` },
+      { title: `${product.name} — Oja Oba` },
       { name: "description", content: blurb },
-      { property: "og:title", content: `${product.name} — Kasuwa Market` },
+      { property: "og:title", content: `${product.name} — Oja Oba` },
       { property: "og:description", content: blurb },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

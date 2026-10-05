@@ -57,7 +57,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link to="/" className="flex items-baseline gap-2">
           <span className="font-display text-2xl font-semibold tracking-tight text-foreground">
-            Kasuwa
+            Oja Oba
           </span>
           <span className="hidden text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground sm:inline">
             Market

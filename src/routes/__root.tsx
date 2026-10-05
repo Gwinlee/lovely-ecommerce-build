@@ -81,10 +81,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Kasuwa Market — Everyday Goods" },
+      { title: "Oja Oba — Everyday Goods" },
       { name: "description", content: "Shop everyday essentials — bags, ceramics, homeware and more, priced in Naira." },
-      { name: "author", content: "Kasuwa Market" },
-      { property: "og:title", content: "Kasuwa Market — Everyday Goods" },
+      { name: "author", content: "Oja Oba" },
+      { property: "og:title", content: "Oja Oba — Everyday Goods" },
       { property: "og:description", content: "Shop everyday essentials — bags, ceramics, homeware and more, priced in Naira." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -134,7 +134,7 @@ function SiteFooter() {
   return (
     <footer className="border-t border-border bg-card">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:px-6">
-        <p>© {new Date().getFullYear()} Kasuwa Market</p>
+        <p>© {new Date().getFullYear()} Oja Oba</p>
         <nav aria-label="Legal" className="flex items-center gap-4">
           <Link
             to="/privacy"
