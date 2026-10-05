@@ -9,10 +9,10 @@ import { productsQueryOptions } from "@/lib/products.functions";
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Your Cart — Kasuwa Market" },
-      { name: "description", content: "Review the items in your Kasuwa Market cart, adjust quantities and see your total in Naira." },
-      { property: "og:title", content: "Your Cart — Kasuwa Market" },
-      { property: "og:description", content: "Review your cart and total in Naira at Kasuwa Market." },
+      { title: "Your Cart — Oja Oba" },
+      { name: "description", content: "Review the items in your Oja Oba cart, adjust quantities and see your total in Naira." },
+      { property: "og:title", content: "Your Cart — Oja Oba" },
+      { property: "og:description", content: "Review your cart and total in Naira at Oja Oba." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

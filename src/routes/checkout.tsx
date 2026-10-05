@@ -9,9 +9,9 @@ import { placeOrder } from "@/lib/orders.functions";
 export const Route = createFileRoute("/checkout")({
   head: () => ({
     meta: [
-      { title: "Checkout — Kasuwa Market" },
-      { name: "description", content: "Confirm your details and place your Kasuwa Market order." },
-      { property: "og:title", content: "Checkout — Kasuwa Market" },
+      { title: "Checkout — Oja Oba" },
+      { name: "description", content: "Confirm your details and place your Oja Oba order." },
+      { property: "og:title", content: "Checkout — Oja Oba" },
       { property: "og:description", content: "Confirm your details and place your order." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -3,17 +3,17 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Kasuwa Market" },
+      { title: "Privacy Policy — Oja Oba" },
       {
         name: "description",
         content:
-          "How Kasuwa Market collects and uses your personal data: Google sign-in details, order information, and your rights.",
+          "How Oja Oba collects and uses your personal data: Google sign-in details, order information, and your rights.",
       },
-      { property: "og:title", content: "Privacy Policy — Kasuwa Market" },
+      { property: "og:title", content: "Privacy Policy — Oja Oba" },
       {
         property: "og:description",
         content:
-          "How Kasuwa Market collects and uses your personal data: Google sign-in details, order information, and your rights.",
+          "How Oja Oba collects and uses your personal data: Google sign-in details, order information, and your rights.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -32,7 +32,7 @@ function PrivacyPage() {
         Privacy Policy
       </h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        How we handle your personal information at Kasuwa Market.
+        How we handle your personal information at Oja Oba.
       </p>
 
       <div className="mt-8 space-y-8">

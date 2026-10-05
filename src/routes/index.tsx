@@ -6,13 +6,13 @@ import { ProductCard } from "@/components/product-card";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Kasuwa Market — Everyday Goods" },
+      { title: "Oja Oba — Everyday Goods" },
       {
         name: "description",
         content:
           "Browse everyday essentials — backpacks, ceramics, headphones, homeware and more. Prices in Naira, delivered with care.",
       },
-      { property: "og:title", content: "Kasuwa Market — Everyday Goods" },
+      { property: "og:title", content: "Oja Oba — Everyday Goods" },
       {
         property: "og:description",
         content: "Browse everyday essentials — backpacks, ceramics, headphones, homeware and more. Prices in Naira.",
@@ -36,14 +36,13 @@ function HomePage() {
     <main className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
       <section className="mt-6 rounded-2xl border border-border bg-card px-6 py-12 text-center sm:mt-10 sm:px-10 sm:py-16">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">
-          Kasuwa Market
+          OJA OBA MARKET
         </p>
         <h1 className="mx-auto mt-3 max-w-2xl font-display text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl">
-          Everyday goods, honestly priced in Naira
+          Shop the market. Skip the crowd.
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground">
-          From sturdy backpacks to hand-finished ceramics — browse the shelves and add what you
-          love to your cart.
+          Everything you need, all in one market.
         </p>
       </section>
 

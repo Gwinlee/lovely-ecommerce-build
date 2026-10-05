@@ -8,10 +8,10 @@ import { getMyOrder } from "@/lib/orders.functions";
 export const Route = createFileRoute("/orders/$id")({
   head: () => ({
     meta: [
-      { title: "Order placed — Kasuwa Market" },
-      { name: "description", content: "Your Kasuwa Market order confirmation." },
-      { property: "og:title", content: "Order placed — Kasuwa Market" },
-      { property: "og:description", content: "Your Kasuwa Market order confirmation." },
+      { title: "Order placed — Oja Oba" },
+      { name: "description", content: "Your Oja Oba order confirmation." },
+      { property: "og:title", content: "Order placed — Oja Oba" },
+      { property: "og:description", content: "Your Oja Oba order confirmation." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
