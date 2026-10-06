@@ -11,9 +11,9 @@ function detailHead(loaderData?: { product: Product | null }) {
   if (!product) {
     return {
       meta: [
-        { title: "Product not found — Oja Oba" },
+        { title: "Product details — Oja Oba" },
         { name: "description", content: "This product is unavailable at Oja Oba. Browse the shop for everyday essentials." },
-        { property: "og:title", content: "Product not found — Oja Oba" },
+        { property: "og:title", content: "Product details — Oja Oba" },
         { property: "og:description", content: "Browse Oja Oba for everyday essentials, priced in Naira." },
         { property: "og:type", content: "website" },
         { name: "twitter:card", content: "summary" },
@@ -38,7 +38,7 @@ function detailHead(loaderData?: { product: Product | null }) {
 
 
 export const Route = createFileRoute("/products/$id")({
-  head: ({ loaderData }) => detailHead(loaderData),
+  head: () => detailHead(undefined),
   loader: async ({ params }) => {
     const id = Number(params.id);
     const product = await getProduct({ data: { id } });
