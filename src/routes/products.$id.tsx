@@ -3,6 +3,8 @@ import { getProduct } from "@/lib/products.functions";
 import { formatNaira } from "@/lib/format";
 import { AddToCartButton } from "@/components/product-card";
 import type { Product } from "@/lib/products.functions";
+import { Button } from "@/components/ui/button";
+import { PackageSearch, TriangleAlert } from "lucide-react";
 
 function detailHead(loaderData?: { product: Product | null }) {
   const product = loaderData?.product;
@@ -10,6 +12,11 @@ function detailHead(loaderData?: { product: Product | null }) {
     return {
       meta: [
         { title: "Product not found — Oja Oba" },
+        { name: "description", content: "This product is unavailable at Oja Oba. Browse the shop for everyday essentials." },
+        { property: "og:title", content: "Product not found — Oja Oba" },
+        { property: "og:description", content: "Browse Oja Oba for everyday essentials, priced in Naira." },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary" },
         { name: "robots", content: "noindex" },
       ],
     };
@@ -31,7 +38,7 @@ function detailHead(loaderData?: { product: Product | null }) {
 
 
 export const Route = createFileRoute("/products/$id")({
-  head: () => detailHead(undefined),
+  head: ({ loaderData }) => detailHead(loaderData),
   loader: async ({ params }) => {
     const id = Number(params.id);
     const product = await getProduct({ data: { id } });
@@ -61,12 +68,12 @@ function ProductDetailPage() {
       </nav>
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div className="overflow-hidden rounded-2xl border border-border bg-secondary">
+        <div className="detail-image overflow-hidden rounded-2xl border border-border bg-secondary">
           {product.image_url ? (
             <img
               src={product.image_url}
               alt={product.name}
-              className="aspect-square w-full object-cover"
+              className="product-image aspect-square w-full object-cover"
             />
           ) : (
             <div className="flex aspect-square w-full items-center justify-center text-sm text-muted-foreground">
@@ -141,6 +148,7 @@ function DetailError({ reset }: { reset: () => void }) {
   return (
     <main className="mx-auto w-full max-w-5xl px-4 pb-16 sm:px-6">
       <div className="mt-10 rounded-2xl border border-destructive/30 bg-card px-6 py-16 text-center">
+        <TriangleAlert className="state-icon" aria-hidden="true" />
         <h2 className="font-display text-2xl font-semibold text-foreground">
           We couldn't load this product
         </h2>
@@ -148,12 +156,12 @@ function DetailError({ reset }: { reset: () => void }) {
           Something went wrong. Please try again.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
+          <Button
             onClick={reset}
             className="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Try again
-          </button>
+          </Button>
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-lg border border-input bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
@@ -170,6 +178,7 @@ function ProductNotFound() {
   return (
     <main className="mx-auto w-full max-w-5xl px-4 pb-16 sm:px-6">
       <div className="mt-10 rounded-2xl border border-dashed border-border bg-card px-6 py-16 text-center">
+        <PackageSearch className="state-icon" aria-hidden="true" />
         <h2 className="font-display text-2xl font-semibold text-foreground">Product not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           This item may have been removed or the link is out of date.

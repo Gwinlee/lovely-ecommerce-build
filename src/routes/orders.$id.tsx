@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth";
 import { formatNaira } from "@/lib/format";
 import { getMyOrder } from "@/lib/orders.functions";
+import { CheckCircle2, PackageSearch } from "lucide-react";
 
 export const Route = createFileRoute("/orders/$id")({
   head: () => ({
@@ -32,7 +33,7 @@ function OrderSuccessPage() {
 
   if (loading || (user && order.isPending)) {
     return (
-      <main className="mx-auto w-full max-w-2xl px-4 py-10 sm:px-6">
+      <main className="mx-auto w-full max-w-2xl px-4 py-10 sm:px-6" aria-busy="true" aria-label="Loading order">
         <div className="h-8 w-56 animate-pulse rounded bg-muted" />
         <div className="mt-6 h-48 animate-pulse rounded-xl bg-muted" />
       </main>
@@ -53,6 +54,7 @@ function OrderSuccessPage() {
   return (
     <main className="mx-auto w-full max-w-2xl px-4 pb-16 sm:px-6">
       <div className="mt-8 rounded-2xl border border-border bg-card p-6">
+        <CheckCircle2 className="feedback-icon mb-4 h-8 w-8 text-primary" aria-hidden="true" />
         <p className="text-sm font-medium text-primary">Thank you{o.customer_name ? `, ${o.customer_name}` : ""}!</p>
         <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-foreground">Order #{o.id} placed</h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -89,6 +91,7 @@ function OrderSuccessPage() {
 function Message({ title, body }: { title: string; body: string }) {
   return (
     <main className="mx-auto w-full max-w-xl px-4 py-16 text-center sm:px-6">
+      <PackageSearch className="state-icon" aria-hidden="true" />
       <h1 className="font-display text-2xl font-semibold text-foreground">{title}</h1>
       <p className="mt-2 text-sm text-muted-foreground">{body}</p>
       <Link to="/" className="mt-6 inline-flex h-11 items-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground">

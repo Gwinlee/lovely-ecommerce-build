@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { formatNaira } from "@/lib/format";
 import { productsQueryOptions } from "@/lib/products.functions";
+import { Button } from "@/components/ui/button";
+import { Minus, Plus, ShoppingBag, Trash2, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
@@ -48,7 +50,7 @@ function CartPage() {
 
   if (!hydrated) {
     return (
-      <main className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6">
+      <main className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6" aria-busy="true" aria-label="Loading cart">
         <div className="h-8 w-40 animate-pulse rounded bg-muted" />
         <div className="mt-6 h-28 animate-pulse rounded-xl bg-muted" />
       </main>
@@ -61,6 +63,7 @@ function CartPage() {
 
       {items.length === 0 ? (
         <div className="mt-8 rounded-2xl border border-dashed border-border bg-card px-6 py-16 text-center">
+          <ShoppingBag className="state-icon" aria-hidden="true" />
           <h2 className="font-display text-2xl font-semibold text-foreground">Your cart is empty</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             Nothing here yet — have a look around the shop and add something you love.
@@ -78,7 +81,7 @@ function CartPage() {
             {items.map((item) => {
               const atMax = item.quantity >= item.stockQuantity;
               return (
-                <li key={item.productId} className="flex gap-4 p-4">
+                <li key={item.productId} className="cart-row flex gap-4 p-4">
                   <Link
                     to="/products/$id"
                     params={{ id: String(item.productId) }}
@@ -91,7 +94,7 @@ function CartPage() {
                     )}
                   </Link>
                   <div className="flex min-w-0 flex-1 flex-col gap-2">
-                    <div className="flex items-start justify-between gap-3">
+                    <div className="cart-item-heading flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <Link
                           to="/products/$id"
@@ -106,35 +109,35 @@ function CartPage() {
                     </div>
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div className="inline-flex items-center rounded-lg border border-border">
-                        <button
+                        <Button variant="ghost" size="icon"
                           type="button"
                           aria-label={`Decrease quantity of ${item.name}`}
                           disabled={item.quantity <= 1}
                           onClick={() => setQuantity(item.productId, item.quantity - 1)}
-                          className="h-9 w-9 text-lg text-foreground hover:bg-secondary disabled:opacity-40"
+                          className="h-11 w-11 text-lg text-foreground hover:bg-secondary disabled:opacity-40"
                         >
-                          −
-                        </button>
+                          <Minus aria-hidden="true" />
+                        </Button>
                         <span className="w-10 text-center text-sm font-medium" aria-live="polite">
                           {item.quantity}
                         </span>
-                        <button
+                        <Button variant="ghost" size="icon"
                           type="button"
                           aria-label={`Increase quantity of ${item.name}`}
                           disabled={atMax}
                           onClick={() => setQuantity(item.productId, item.quantity + 1)}
-                          className="h-9 w-9 text-lg text-foreground hover:bg-secondary disabled:opacity-40"
+                          className="h-11 w-11 text-lg text-foreground hover:bg-secondary disabled:opacity-40"
                         >
-                          +
-                        </button>
+                          <Plus aria-hidden="true" />
+                        </Button>
                       </div>
-                      <button
+                      <Button variant="ghost"
                         type="button"
                         onClick={() => removeItem(item.productId)}
-                        className="text-sm font-medium text-destructive hover:underline"
+                        className="h-11 px-2 text-sm font-medium text-destructive hover:bg-destructive/10 hover:text-destructive"
                       >
-                        Remove
-                      </button>
+                        <Trash2 aria-hidden="true" /> Remove
+                      </Button>
                     </div>
                     {atMax && (
                       <p className="text-xs text-muted-foreground">Only {item.stockQuantity} in stock</p>
@@ -154,13 +157,14 @@ function CartPage() {
               <span>Total</span>
               <span>{formatNaira(total)}</span>
             </div>
-            <button
+            <Button
               type="button"
               onClick={onCheckout}
               className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary text-base font-semibold text-primary-foreground hover:bg-primary/90"
             >
               {user ? "Checkout" : "Sign in to check out"}
-            </button>
+              <ArrowRight aria-hidden="true" />
+            </Button>
             {message && (
               <p role="status" className="mt-3 rounded-lg bg-secondary px-3 py-2 text-center text-sm text-secondary-foreground">
                 {message}
