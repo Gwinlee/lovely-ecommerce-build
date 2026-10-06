@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { useAuth, displayName } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
 
 function GoogleIcon() {
   return (
@@ -73,17 +74,17 @@ export function SiteHeader() {
               >
                 {displayName(user)}
               </span>
-              <button
+              <Button variant="outline"
                 type="button"
                 onClick={handleSignOut}
                 disabled={busy}
                 className="inline-flex h-10 items-center rounded-full border border-border bg-card px-4 text-sm font-medium text-foreground transition-colors hover:border-primary/40 hover:bg-secondary disabled:opacity-60"
               >
                 Sign out
-              </button>
+              </Button>
             </div>
           ) : (
-            <button
+            <Button variant="outline"
               type="button"
               onClick={handleSignIn}
               disabled={busy}
@@ -91,11 +92,12 @@ export function SiteHeader() {
             >
               <GoogleIcon />
               <span>{busy ? "Signing in…" : "Sign in"}</span>
-            </button>
+            </Button>
           )}
 
           <Link
             to="/cart"
+            activeProps={{ className: "border-primary/60 bg-secondary" }}
             aria-label={`Cart with ${count} item${count === 1 ? "" : "s"}`}
             className="relative inline-flex h-10 items-center gap-2 rounded-full border border-border bg-card px-4 text-sm font-medium text-foreground transition-colors hover:border-primary/40 hover:bg-secondary"
           >
@@ -117,7 +119,7 @@ export function SiteHeader() {
             </svg>
             <span className="hidden sm:inline">Cart</span>
             {count > 0 && (
-              <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-semibold text-accent-foreground">
+              <span key={count} className="cart-pop absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-semibold text-accent-foreground">
                 {count > 99 ? "99+" : count}
               </span>
             )}

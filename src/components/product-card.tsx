@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import type { Product } from "@/lib/products.functions";
 import { formatNaira } from "@/lib/format";
 import { useCart } from "@/lib/cart";
+import { Button } from "@/components/ui/button";
+import { Check, ShoppingBag } from "lucide-react";
 
 export function AddToCartButton({ product, className }: { product: Product; className?: string }) {
   const { addToCart, items } = useCart();
@@ -20,7 +22,7 @@ export function AddToCartButton({ product, className }: { product: Product; clas
   const maxed = !outOfStock && inCart >= product.stock_quantity;
   if (outOfStock || maxed) {
     return (
-      <button
+      <Button
         disabled
         className={
           (className ?? "inline-flex h-10 w-full items-center justify-center rounded-lg text-sm font-medium") +
@@ -28,12 +30,13 @@ export function AddToCartButton({ product, className }: { product: Product; clas
         }
       >
         {outOfStock ? "Out of stock" : "Max in cart"}
-      </button>
+      </Button>
     );
   }
 
   return (
-    <button
+    <Button
+      type="button"
       onClick={() => {
         addToCart({
           productId: product.id,
@@ -52,14 +55,15 @@ export function AddToCartButton({ product, className }: { product: Product; clas
         (added ? " bg-primary/85 text-primary-foreground" : " bg-primary text-primary-foreground hover:bg-primary/90")
       }
     >
-      {added ? "Added ✓" : "Add to Cart"}
-    </button>
+      {added ? <Check className="feedback-icon" aria-hidden="true" /> : <ShoppingBag aria-hidden="true" />}
+      <span aria-live="polite">{added ? "Added to cart" : "Add to Cart"}</span>
+    </Button>
   );
 }
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md">
+    <article className="product-card group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
       <Link to="/products/$id" params={{ id: String(product.id) }} className="block">
         <div className="relative aspect-square w-full overflow-hidden bg-secondary">
           {product.image_url ? (
@@ -67,7 +71,7 @@ export function ProductCard({ product }: { product: Product }) {
               src={product.image_url}
               alt={product.name}
               loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              className="product-image h-full w-full object-cover"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
