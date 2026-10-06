@@ -114,7 +114,7 @@
 .hero-intro > * { animation: enter-section 500ms var(--motion-ease) both; }
 .hero-intro > :nth-child(2) { animation-delay: 60ms; }
 .hero-intro > :nth-child(3) { animation-delay: 120ms; }
-.product-grid > article:nth-child(-n + 3) { animation: enter-section 450ms var(--motion-ease) both; }
+.product-grid > article:nth-child(-n + 3) { animation: enter-section 450ms var(--motion-ease) backwards; }
 .product-grid > article:nth-child(2) { animation-delay: 40ms; }
 .product-grid > article:nth-child(3) { animation-delay: 80ms; }
 .product-card { transition: transform 240ms var(--motion-ease), box-shadow 240ms var(--motion-ease), border-color 240ms var(--motion-ease); }
