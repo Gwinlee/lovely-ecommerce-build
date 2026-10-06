@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { productsQueryOptions } from "@/lib/products.functions";
 import { ProductCard } from "@/components/product-card";
+import { Button } from "@/components/ui/button";
+import { PackageOpen, TriangleAlert } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,7 +36,7 @@ function HomePage() {
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
-      <section className="mt-6 rounded-2xl border border-border bg-card px-6 py-12 text-center sm:mt-10 sm:px-10 sm:py-16">
+      <section className="hero-intro mt-6 rounded-2xl border border-border bg-card px-6 py-12 text-center sm:mt-10 sm:px-10 sm:py-16">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">
           OJA OBA MARKET
         </p>
@@ -49,6 +51,7 @@ function HomePage() {
       <section className="mt-10 sm:mt-14">
         {products.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border bg-card px-6 py-16 text-center">
+            <PackageOpen className="state-icon" aria-hidden="true" />
             <h2 className="font-display text-2xl font-semibold text-foreground">No products yet</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               The shelves are being stocked. Please check back soon.
@@ -62,7 +65,7 @@ function HomePage() {
                 {products.length} item{products.length === 1 ? "" : "s"}
               </p>
             </div>
-            <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="product-grid mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -102,18 +105,19 @@ function HomeError({ reset }: { reset: () => void }) {
   return (
     <main className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
       <div className="mt-10 rounded-2xl border border-destructive/30 bg-card px-6 py-16 text-center">
+        <TriangleAlert className="state-icon" aria-hidden="true" />
         <h2 className="font-display text-2xl font-semibold text-foreground">
           We couldn't load the shop
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong while fetching the products. Please try again.
         </p>
-        <button
+        <Button
           onClick={reset}
           className="mt-6 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
         >
           Try again
-        </button>
+        </Button>
       </div>
     </main>
   );

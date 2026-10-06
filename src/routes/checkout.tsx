@@ -5,6 +5,8 @@ import { useAuth, displayName } from "@/lib/auth";
 import { useCart } from "@/lib/cart";
 import { formatNaira } from "@/lib/format";
 import { placeOrder } from "@/lib/orders.functions";
+import { Button } from "@/components/ui/button";
+import { Loader2, ShoppingBag, UserRound } from "lucide-react";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -46,7 +48,7 @@ function CheckoutPage() {
 
   if (loading || !hydrated) {
     return (
-      <main className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6">
+      <main className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6" aria-busy="true" aria-label="Loading checkout">
         <div className="h-8 w-40 animate-pulse rounded bg-muted" />
         <div className="mt-6 h-40 animate-pulse rounded-xl bg-muted" />
       </main>
@@ -56,15 +58,16 @@ function CheckoutPage() {
   if (!user) {
     return (
       <main className="mx-auto w-full max-w-xl px-4 py-16 text-center sm:px-6">
+        <UserRound className="state-icon" aria-hidden="true" />
         <h1 className="font-display text-2xl font-semibold text-foreground">Sign in to check out</h1>
         <p className="mt-2 text-sm text-muted-foreground">Please sign in with Google. We'll bring you back to your cart.</p>
-        <button
+        <Button
           type="button"
           onClick={() => signInWithGoogle("/cart").catch(() => setError("Sign-in failed. Please try again."))}
           className="mt-6 inline-flex h-11 items-center justify-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
         >
           Sign in with Google
-        </button>
+        </Button>
         {error && <p role="alert" className="mt-3 text-sm text-destructive">{error}</p>}
       </main>
     );
@@ -73,6 +76,7 @@ function CheckoutPage() {
   if (items.length === 0) {
     return (
       <main className="mx-auto w-full max-w-xl px-4 py-16 text-center sm:px-6">
+        <ShoppingBag className="state-icon" aria-hidden="true" />
         <h1 className="font-display text-2xl font-semibold text-foreground">Your cart is empty</h1>
         <Link to="/" className="mt-6 inline-flex h-11 items-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground">
           Start shopping
@@ -117,7 +121,7 @@ function CheckoutPage() {
     <main className="mx-auto w-full max-w-4xl px-4 pb-16 sm:px-6">
       <h1 className="mt-8 font-display text-3xl font-semibold tracking-tight text-foreground">Checkout</h1>
       <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_340px]">
-        <form onSubmit={onSubmit} className="h-fit rounded-2xl border border-border bg-card p-5">
+        <form onSubmit={onSubmit} aria-busy={submitting} className="h-fit rounded-2xl border border-border bg-card p-5">
           <h2 className="font-display text-lg font-semibold text-foreground">Your details</h2>
           <label className="mt-4 block text-sm font-medium text-foreground">
             Full name
@@ -132,13 +136,14 @@ function CheckoutPage() {
               {error}
             </p>
           )}
-          <button
+          <Button
             type="submit"
             disabled={submitting}
             className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary text-base font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
           >
+            {submitting && <Loader2 className="animate-spin" aria-hidden="true" />}
             {submitting ? "Placing order…" : "Place order"}
-          </button>
+          </Button>
           <Link to="/cart" className="mt-3 block text-center text-sm text-muted-foreground hover:text-foreground">
             Back to cart
           </Link>

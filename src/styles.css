@@ -65,6 +65,8 @@
   --border: oklch(0.885 0.02 85);
   --input: oklch(0.885 0.02 85);
   --ring: oklch(0.4 0.075 155);
+  --motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --shadow-product-hover: 0 14px 30px -16px oklch(0.28 0.025 60 / 25%);
 }
 
 .dark {
@@ -87,6 +89,75 @@
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
   --ring: oklch(0.72 0.1 155);
+  --shadow-product-hover: 0 14px 30px -16px oklch(0.1 0.02 60 / 55%);
+}
+
+/* Shared, presentation-only interaction layer. */
+@keyframes enter-section {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes cart-pop {
+  0%, 100% { transform: scale(1); }
+  45% { transform: scale(1.22); }
+}
+@keyframes skeleton-shimmer {
+  to { background-position: -200% 0; }
+}
+@keyframes feedback-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.route-view { flex: 1; min-width: 0; }
+.route-view main { animation: enter-section 320ms var(--motion-ease) both; }
+.hero-intro > * { animation: enter-section 500ms var(--motion-ease) both; }
+.hero-intro > :nth-child(2) { animation-delay: 60ms; }
+.hero-intro > :nth-child(3) { animation-delay: 120ms; }
+.product-grid > article:nth-child(-n + 3) { animation: enter-section 450ms var(--motion-ease) backwards; }
+.product-grid > article:nth-child(2) { animation-delay: 40ms; }
+.product-grid > article:nth-child(3) { animation-delay: 80ms; }
+.product-card { transition: transform 240ms var(--motion-ease), box-shadow 240ms var(--motion-ease), border-color 240ms var(--motion-ease); }
+.product-image { transition: transform 450ms var(--motion-ease); }
+.cart-pop { animation: cart-pop 320ms var(--motion-ease); }
+.feedback-icon { animation: feedback-in 180ms var(--motion-ease); }
+.cart-row { animation: enter-section 260ms var(--motion-ease) both; }
+.cart-row:nth-child(2) { animation-delay: 35ms; }
+.cart-row:nth-child(3) { animation-delay: 70ms; }
+.state-icon { margin: 0 auto 1rem; width: 2rem; height: 2rem; color: var(--muted-foreground); }
+.animate-pulse {
+  animation: skeleton-shimmer 1.8s linear infinite;
+  background-image: linear-gradient(100deg, var(--muted) 35%, var(--card) 50%, var(--muted) 65%);
+  background-size: 200% 100%;
+}
+button, a.inline-flex {
+  touch-action: manipulation;
+  transition: transform 180ms var(--motion-ease), background-color 180ms var(--motion-ease), border-color 180ms var(--motion-ease), box-shadow 180ms var(--motion-ease), color 180ms var(--motion-ease);
+}
+button:not(:disabled):active, a.inline-flex:active { transform: scale(0.97); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+input { transition: border-color 180ms var(--motion-ease), box-shadow 180ms var(--motion-ease), background-color 180ms var(--motion-ease); }
+input:focus { border-color: var(--ring); }
+[role="alert"], [role="status"] { overflow-wrap: anywhere; }
+.route-view main p, .route-view main h1, .route-view main h2 { overflow-wrap: anywhere; }
+.route-view main h1, .route-view main h2, .route-view main h3 { letter-spacing: 0; }
+@media (hover: hover) and (pointer: fine) {
+  button:not(:disabled):hover, a.inline-flex:hover { transform: translateY(-1px); }
+  button:hover svg, a.inline-flex:hover svg { transition: transform 180ms var(--motion-ease); transform: translateY(-1px); }
+  .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-product-hover); border-color: var(--primary); }
+  .product-card:first-child:hover { transform: perspective(1000px) translateY(-4px) rotateX(1deg) rotateY(-1deg); }
+  .product-card:hover .product-image, .detail-image:hover .product-image { transform: scale(1.035); }
+}
+@media (max-width: 639px) {
+  .cart-item-heading { flex-wrap: wrap; gap: 0.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .product-card:hover, .product-card:first-child:hover, .product-card:hover .product-image, .detail-image:hover .product-image,
+  button:not(:disabled):hover, button:not(:disabled):active, a.inline-flex:hover, a.inline-flex:active, button:hover svg, a.inline-flex:hover svg { transform: none !important; }
 }
 
 @layer base {
