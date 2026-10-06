@@ -1,6 +1,6 @@
 # Oja Oba — E-commerce Shop
 
-Live site: https://lovely-ecommerce-build.vercel.app
+Live site: https://oja-oba.vercel.app/
 
 ## Features
 - Product listing and product details pages (data from Supabase)
